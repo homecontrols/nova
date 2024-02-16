@@ -40,6 +40,14 @@
   p {
     margin: 0;
   }
+
+  p.bold {
+    font-weight: 700;
+  }
+
+  main {
+    margin-left: 4rem;
+  }
 </style>
 
 <style scoped>

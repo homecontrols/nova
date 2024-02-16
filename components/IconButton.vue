@@ -6,12 +6,14 @@
   const props = withDefaults(
     defineProps<{
       icon?: string;
+      label?: string;
       src?: string;
       active?: boolean | Ref | ComputedRef;
       hover?: boolean | string;
     }>(),
     {
       icon: "menu",
+      label: "",
       src: "",
       active: false,
       hover: true,
@@ -21,6 +23,7 @@
   const iconProps = {
     icon: props.icon,
     src: props.src,
+    width: props.label !== "" ? "100%" : "3rem",
   };
 
   let active = ref("");
@@ -43,25 +46,43 @@
 </script>
 
 <template>
-  <div class="button">
-    <Icon v-bind="iconProps" />
+  <div class="icon_button">
+    <div class="button">
+      <Icon v-bind="iconProps" />
+    </div>
+    <p>{{ props.label }}</p>
   </div>
 </template>
 
 <style scoped>
-  .button {
-    width: 3rem;
-    height: 3rem;
+  .icon_button {
     display: flex;
     align-items: center;
-    justify-content: center;
+    height: 3rem;
+    width: v-bind("iconProps.width");
+    gap: 1rem;
+    overflow: hidden;
+
     border-radius: 0.5rem;
     background: v-bind("active");
     transition: background 0.3s ease;
     cursor: pointer;
+
+    &:hover {
+      background: v-bind("hover");
+    }
+  }
+  .button {
+    width: 3rem;
+    height: 3rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .button:hover {
-    background: v-bind("hover");
+  p {
+    font-weight: 700;
+    white-space: nowrap;
   }
 </style>
