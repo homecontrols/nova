@@ -23,7 +23,11 @@
         @click="() => (collapsed = true)" />
     </div>
     <div class="links">
-      <IconButton icon="home" label="Dashboard" />
+      <IconButton
+        icon="home"
+        label="Dashboard"
+        :active="$route.path === '/' || $route.path.startsWith('/dashboard')"
+        @click="() => $router.push('/')" />
       <IconButton icon="home_iot_device" label="Devices" />
       <IconButton icon="bolt" label="Energy" />
       <IconButton icon="wifi" label="Network" />
@@ -31,9 +35,19 @@
     <div class="bottom">
       <Avatar />
       <IconButton src="/icons/terminal.svg" label="Terminal & Logs" />
-      <IconButton icon="settings" label="Settigns" />
+      <IconButton
+        icon="settings"
+        label="Settigns"
+        :active="$route.path.startsWith('/settings')"
+        @click="() => $router.push('/settings')" />
     </div>
   </nav>
+  <div
+    class="darkener"
+    :class="{
+      shown: collapsed === false,
+    }"
+    @click="() => (collapsed = true)"></div>
 </template>
 
 <style scoped>
@@ -41,6 +55,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 10;
     background: var(--surface);
     width: 4rem;
     height: 100vh;
@@ -58,6 +73,23 @@
 
     &:not(.collapsed) {
       width: 20rem;
+    }
+  }
+
+  .darkener {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    width: 100vw;
+    height: 100vh;
+    background: none;
+    transition: background 0.3s ease;
+    pointer-events: none;
+
+    &.shown {
+      pointer-events: all;
+      background: rgba(0, 0, 0, 0.4);
     }
   }
 

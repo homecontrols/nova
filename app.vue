@@ -1,6 +1,9 @@
 <template>
   <div class="root">
-    <NuxtPage />
+    <Nav />
+    <main>
+      <NuxtPage />
+    </main>
   </div>
 </template>
 
@@ -46,6 +49,7 @@
   }
 
   main {
+    padding: 1rem;
     margin-left: 4rem;
   }
 </style>
